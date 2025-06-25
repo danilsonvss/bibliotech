@@ -1,4 +1,4 @@
-<header class="header sticky bg-indigo-500 p-3 shadow-md">
+<header class="header sticky bg-indigo-500 py-2 shadow-md">
     <x-container>
         <div class="flex flex-row gap-1 justify-between">
             <h1 class="text-2xl text-white font-bold">

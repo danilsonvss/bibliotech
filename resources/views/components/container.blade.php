@@ -1,3 +1,3 @@
-<div class="w-full px-3 py-2 md:w-8/12 m-auto">
+<div class="w-full px-3 xs:w-10/12 md:w-10/12 lg:w-[1024px] m-auto">
     {{ $slot }}
 </div>
