@@ -4,77 +4,64 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CadastrarUsuarioRequest;
 use App\Models\Usuario;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Cache;
 
 class UsuarioController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        $usuarios = Cache::remember('usuarios', null, function () {
-            return Usuario::get();
-        });
+        $usuarios = Usuario::paginate(20)->withQueryString();
         return view('pages.usuarios.index', compact('usuarios'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         return view('pages.usuarios.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(CadastrarUsuarioRequest $request)
     {
         $usuario = Usuario::create($request->validated());
-        Cache::forget('usuarios');
-        return redirect(route('usuarios.edit', ['usuario' => $usuario->id]))
-            ->with('success', 'Usuario cadastrado com sucesso');
+        if ($usuario) {
+            return redirect()
+                ->route('usuarios.edit', $usuario)
+                ->with('success', __('Usuario cadastrado com sucesso'));
+        }
+        return redirect()
+            ->back()
+            ->with('error', __('Falha ao cadastrar o usuário'));
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(Usuario $usuario)
     {
-        return redirect(route('usuarios.edit', $usuario));
+        return view('pages.usuarios.edit', compact('usuario'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Usuario $usuario)
     {
         return view('pages.usuarios.edit', compact('usuario'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(CadastrarUsuarioRequest $request, Usuario $usuario)
     {
-        $usuario->fill($request->validated());
-        $usuario->save();
-        Cache::forget('usuarios');
-        return redirect(route('usuarios.edit', ['usuario' => $usuario->id]))
-            ->with('success', 'Usuario alterado com sucesso');
+        if ($usuario->update($request->validated())) {
+            return redirect()
+                ->back()
+                ->with('success', __('Usuário alterado com sucesso'));
+        }
+        return redirect()
+            ->back()
+            ->with('error', __('Falha ao alterar o usuário'));
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Usuario $usuario)
     {
-        $usuario->delete();
-        Cache::forget('usuarios');
-        return redirect(route('usuarios.index'))
-            ->with('success', 'Usuario excluído com sucesso');
+        if ($usuario->delete()) {
+            return redirect()
+                ->route('usuarios.index')
+                ->with('success', __('Usuário excluído com sucesso'));
+        }
+        return redirect()
+            ->back()
+            ->with('error', __('Falha ao excluir o usuário'));
     }
 }

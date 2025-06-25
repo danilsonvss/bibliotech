@@ -1,12 +1,10 @@
 <ul class="list-none gap-3">
-    @foreach ($livros as $livro)
+    @foreach ($emprestimos as $emprestimo)
         <li class="flex flex-row items-center justify-between px-2 py-2 hover:bg-zinc-300 rounded">
-            <div class="flex flex-col">
-                {{ $livro->titulo }}
-                <span class="text-xs text-sky-500 font-bold">{{ $livro->numero_registro }}</span>
-            </div>
+            {{ $emprestimo->titulo }}
+
             <div class="flex gap-2 items-center">
-                <a href="{{ route('livros.edit', $livro) }}">
+                <a href="{{ route('emprestimos.edit', $emprestimo) }}">
                     <x-buttons.ghost-button>
                         <div class="icon">
                             <x-icons.edit />
@@ -15,7 +13,7 @@
                 </a>
 
                 {{-- Botão excluir sem formulário --}}
-                <form action="{{ route('livros.destroy', $livro) }}" method="post">
+                <form action="{{ route('emprestimos.destroy', $emprestimo) }}" method="post">
                     @csrf
                     @method('DELETE')
 
@@ -30,4 +28,4 @@
     @endforeach
 </ul>
 
-<x-pages.empty :items="$livros" name="livro" />
+<x-pages.empty :items="$emprestimos" name="emprestimo" />

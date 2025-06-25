@@ -22,7 +22,7 @@
 
                     <x-buttons.ghost-button class="excluir-btn text-red-500 hover:text-red-800 cursor-pointer"
                         data-titulo="{{ $usuario->titulo }}">
-                        <div class="icon">
+                        <div class="icon text-red-400">
                             <x-icons.trash />
                         </div>
                     </x-buttons.ghost-button>

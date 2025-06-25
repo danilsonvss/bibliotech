@@ -58,15 +58,11 @@ class LivroControllerTest extends TestCase
     public function test_pagina_de_edicao_de_livros_renderiza(): void
     {
         $livro = Livro::factory()->create([
-            'titulo' => 'Test 1',
-            'autor' => 'Test',
+            'titulo' => 'Livro 1',
+            'autor' => 'Autor',
             'numero_registro' => '1',
         ]);
-
-        $response = $this->get(route('livros.edit', [
-            'livro' => $livro->id,
-        ]));
-
+        $response = $this->get(route('livros.edit', ['livro' => $livro->id]));
         $response->assertSeeText('Alterar livro');
         $response->assertViewIs('pages.livros.edit');
         $response->assertStatus(200);
@@ -75,8 +71,8 @@ class LivroControllerTest extends TestCase
     public function test_altera_o_titulo_de_um_livro(): void
     {
         $livro = Livro::factory()->create([
-            'titulo' => 'Test 2',
-            'autor' => 'Test',
+            'titulo' => 'Livro 2',
+            'autor' => 'Autor',
             'numero_registro' => '2',
         ]);
 

@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CadastrarEmprestimoRequest;
 use App\Models\Emprestimo;
-use Illuminate\Support\Facades\Cache;
+use App\Models\Livro;
+use App\Models\Usuario;
 
 class EmprestimoController extends Controller
 {
@@ -13,9 +14,9 @@ class EmprestimoController extends Controller
      */
     public function index()
     {
-        $emprestimos = Cache::remember('emprestimos', null, function () {
-            return Emprestimo::with('livro', 'usuario')->get();
-        });
+        $emprestimos = Emprestimo::with('livro', 'usuario')
+            ->paginate(20)
+            ->withQueryString();
         return view('pages.emprestimos.index', compact('emprestimos'));
     }
 
@@ -24,7 +25,9 @@ class EmprestimoController extends Controller
      */
     public function create()
     {
-        //
+        $usuarios = Usuario::all();
+        $livros = Livro::all();
+        return view('pages.emprestimos.create', compact('usuarios', 'livros'));
     }
 
     /**
@@ -32,7 +35,15 @@ class EmprestimoController extends Controller
      */
     public function store(CadastrarEmprestimoRequest $request)
     {
-        //
+        $emprestimo = Emprestimo::create($request->validated());
+        if ($emprestimo) {
+            return redirect()
+                ->route('emprestimos.edit', $emprestimo)
+                ->with('success', 'Empréstimo cadastrado com sucesso');
+        }
+        return redirect()
+            ->back()
+            ->with('error', __('Falha ao cadastrar o empréstimo'));
     }
 
     /**
@@ -40,7 +51,9 @@ class EmprestimoController extends Controller
      */
     public function show(Emprestimo $emprestimo)
     {
-        //
+        $usuarios = Usuario::all();
+        $livros = Livro::all();
+        return view('pages.livros.edit', compact('usuarios', 'livros', 'emprestimo'));
     }
 
     /**
@@ -48,7 +61,9 @@ class EmprestimoController extends Controller
      */
     public function edit(Emprestimo $emprestimo)
     {
-        //
+        $usuarios = Usuario::all();
+        $livros = Livro::all();
+        return view('pages.livros.edit', compact('usuarios', 'livros', 'emprestimo'));
     }
 
     /**
@@ -56,7 +71,15 @@ class EmprestimoController extends Controller
      */
     public function update(CadastrarEmprestimoRequest $request, Emprestimo $emprestimo)
     {
-        //
+        $emprestimo = Emprestimo::update($request->validated());
+        if ($emprestimo) {
+            return redirect()
+                ->route('emprestimos.edit', $emprestimo)
+                ->with('success', 'Empréstimo cadastrado com sucesso');
+        }
+        return redirect()
+            ->back()
+            ->with('error', __('Falha ao cadastrar o empréstimo'));
     }
 
     /**
@@ -64,6 +87,12 @@ class EmprestimoController extends Controller
      */
     public function destroy(Emprestimo $emprestimo)
     {
-        //
+        if ($emprestimo->delete()) {
+            return redirect(route('emprestimos.index'))
+                ->with('success', 'Empréstimo excluído com sucesso');
+        }
+        return redirect()
+            ->back()
+            ->with('error', __('Falha ao excluir o empréstimo'));
     }
 }
