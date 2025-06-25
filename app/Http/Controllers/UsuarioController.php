@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Usuario;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class UsuarioController extends Controller
 {
@@ -12,7 +13,11 @@ class UsuarioController extends Controller
      */
     public function index()
     {
-        //
+        $usuarios = Cache::remember('livros_com_generos', null, function () {
+            return Usuario::with('generos')->get();
+        });
+
+        return view('pages.usuarios.index', compact('usuarios'));
     }
 
     /**

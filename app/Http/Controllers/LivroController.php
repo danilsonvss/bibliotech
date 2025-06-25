@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CadastrarLivroRequest;
+use App\Models\Genero;
 use App\Models\Livro;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class LivroController extends Controller
 {
@@ -13,7 +14,15 @@ class LivroController extends Controller
      */
     public function index()
     {
-        //
+        $generos = Cache::remember('generos', null, function () {
+            return Genero::get();
+        });
+
+        $livros = Cache::remember('livros', null, function () {
+            return Livro::with('generos')->get();
+        });
+
+        return view('pages.livros.index', compact('livros', 'generos'));
     }
 
     /**
@@ -21,7 +30,7 @@ class LivroController extends Controller
      */
     public function create()
     {
-        //
+        return view('pages.livros.create');
     }
 
     /**
@@ -29,7 +38,8 @@ class LivroController extends Controller
      */
     public function store(CadastrarLivroRequest $request)
     {
-        //
+        $livro = Livro::create($request->validated());
+        return redirect(route('livros.edit', ['livro' => $livro->id]))->with('success', 'Livro cadastrado com sucesso');
     }
 
     /**

@@ -25,7 +25,7 @@ class CadastrarLivroRequest extends FormRequest
             'titulo' => 'required|min:3|max:255|unique:livros,titulo',
             'autor' => 'required|min:3|max:255|unique:livros,autor',
             'numero_registro' => 'required|unique:livros,numero_registro',
-            'generos' => 'required|array|exists:generos,id',
+            'generos' => 'required|array:integer|exists:generos,id',
         ];
     }
 }

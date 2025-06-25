@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CadastrarEmprestimoRequest;
 use App\Models\Emprestimo;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class EmprestimoController extends Controller
 {
@@ -13,7 +13,10 @@ class EmprestimoController extends Controller
      */
     public function index()
     {
-        //
+        $emprestimos = Cache::remember('emprestimos', null, function () {
+            return Emprestimo::with('livro', 'usuario')->get();
+        });
+        return view('pages.emprestimos.index', compact('emprestimos'));
     }
 
     /**
