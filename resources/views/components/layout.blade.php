@@ -9,21 +9,24 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet">
-    <title>@yield('title', 'Minha App')</title>
+    <title>{{ $title ?? 'Minha App' }}</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
 <body class="font-normal">
-    @include('header')
+    <x-navigation.header />
+
     <main>
         <x-container>
-            <x-page-title>
-                @yield('page-title')
-            </x-page-title>
+            @isset($pageTitle)
+                <x-pages.page-title>
+                    {{ $pageTitle }}
+                </x-pages.page-title>
+            @endisset
 
-            <hr class="my-2 text-gray-300" />
+            <x-pages.page-divider />
 
-            @yield('content')
+            {{ $slot }}
         </x-container>
     </main>
 </body>

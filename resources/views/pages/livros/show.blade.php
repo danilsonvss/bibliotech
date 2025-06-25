@@ -1,31 +1,23 @@
-@extends('layout')
+<x-layout title="{{ $livro->nome }}" page-title="{{ $livro->nome }}">
+    <x-pages.page-actions>
+        <x-pages.page-breadcrumbs>
+            <x-pages.breadcrumb-item>
+                <a href="{{ route('home') }}" class="text-blue-500">Início</a>
+            </x-pages.breadcrumb-item>
 
-@section('title', 'Livros')
+            <x-pages.breadcrumb-divider />
 
-@section('content')
-@section('page-title', 'Livros')
-<nav>
-    <ul class="flex flex-row gap-1 list-none text-xs font-bold">
-        <li>
-            <a href="{{ route('home') }}" class="text-blue-500">Início</a>
-        </li>
+            <x-pages.breadcrumb-item>
+                <a href="{{ route('livros.index') }}" class="text-blue-500">Livros</a>
+            </x-pages.breadcrumb-item>
 
-        <li class="text-gray-400">/</li>
+            <x-pages.breadcrumb-divider />
 
-        <li>
-            <a href="{{ route('livros.index') }}" class="text-blue-500">Livros</a>
-        </li>
+            <x-pages.breadcrumb-item>
+                {{ $livro->nome }}
+            </x-pages.breadcrumb-item>
+        </x-pages.page-breadcrumbs>
 
-        <li class="text-gray-400">/</li>
-
-        <li class="text-gray-400">
-            {{ $livro->nome }}
-        </li>
-    </ul>
-
-    <div class="my-4">
-        <h3 class="font-2xl font-bold">{{ $livro->nome }}</h3>
-    </div>
-</nav>
-
-@endsection
+        </x-pagesback href="{{ route('livros.index') }}" />
+    </x-pages.page-actions>
+</x-layout>

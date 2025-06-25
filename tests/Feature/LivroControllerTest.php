@@ -3,7 +3,6 @@
 namespace Tests\Feature;
 
 use App\Models\Livro;
-use Database\Factories\LivroFactory;
 use Tests\TestCase;
 
 class LivroControllerTest extends TestCase

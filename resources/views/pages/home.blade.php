@@ -1,7 +1,3 @@
-@extends('layout')
+<x-layout title="Página Inicial" page-title="Página Inicial">
 
-@section('title', 'Página Inicial')
-
-@section('content')
-    @section('page-title', 'Página Inicial')
-@endsection
+</x-layout>
