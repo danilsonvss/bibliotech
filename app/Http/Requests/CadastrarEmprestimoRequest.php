@@ -30,4 +30,16 @@ class CadastrarEmprestimoRequest extends FormRequest
             'data_devolucao' => 'required|date|after_or_equals:data_emprestimo',
         ];
     }
+
+    public function attributes(): array
+    {
+        return [
+            'usuario_id' => 'Usuário',
+            'livro_id' => 'Livro',
+            'devolvido' => 'Devolvido',
+            'data_limite_devolucao' => 'Data para devolução',
+            'data_emprestimo' => 'Data do empréstimo',
+            'data_devolucao' => 'Data da devolução',
+        ];
+    }
 }

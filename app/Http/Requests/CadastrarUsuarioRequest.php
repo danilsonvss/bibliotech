@@ -27,4 +27,13 @@ class CadastrarUsuarioRequest extends FormRequest
             'numero_cadastro' => 'required|min:1|max:255',
         ];
     }
+
+    public function attributes(): array
+    {
+        return [
+            'nome' => 'Nome',
+            'email' => 'E-mail',
+            'numero_cadastro' => 'Número do cadastro',
+        ];
+    }
 }

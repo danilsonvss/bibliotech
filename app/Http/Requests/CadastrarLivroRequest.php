@@ -39,4 +39,14 @@ class CadastrarLivroRequest extends FormRequest
             'generos.*' => 'integer|exists:generos,id',
         ];
     }
+
+    public function attributes(): array
+    {
+        return [
+            'titulo' => 'Título',
+            'autor' => 'Autor',
+            'numero_registro' => 'Número de registro',
+            'generos' => 'Gêneros',
+        ];
+    }
 }

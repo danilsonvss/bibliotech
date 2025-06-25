@@ -29,7 +29,7 @@
             {{ $slot }}
         </x-container>
 
-        <x-alerts.toast />
+        <x-alerts />
     </main>
 </body>
 

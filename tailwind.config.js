@@ -1,0 +1,21 @@
+module.exports = {
+    content: ["./resources/**/*.blade.php"],
+    safelist: [
+        "bg-green-100",
+        "bg-green-300",
+        "bg-green-600",
+        "text-green-800",
+        "bg-red-100",
+        "bg-red-300",
+        "bg-red-600",
+        "text-red-800",
+        "bg-yellow-100",
+        "bg-yellow-300",
+        "bg-yellow-600",
+        "text-yellow-800",
+        "bg-blue-100",
+        "bg-blue-300",
+        "bg-blue-600",
+        "text-blue-800",
+    ],
+};
