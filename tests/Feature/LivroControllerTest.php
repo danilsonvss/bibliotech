@@ -2,6 +2,8 @@
 
 namespace Tests\Feature;
 
+use App\Models\Livro;
+use Database\Factories\LivroFactory;
 use Tests\TestCase;
 
 class LivroControllerTest extends TestCase
@@ -60,5 +62,19 @@ class LivroControllerTest extends TestCase
         $response->assertSeeText('Alterar livro');
         $response->assertViewIs('pages.livros.edit');
         $response->assertStatus(200);
+    }
+
+    public function test_altera_o_titulo_de_um_livro(): void
+    {
+        $livro = Livro::factory()->create();
+
+        $data = [
+            'titulo' => 'Ficção Alterado',
+        ];
+        $response = $this->put(route('livros.update', [
+            'livro' => $livro->id
+        ]), $data);
+        $response->assertStatus(200);
+        $response->assertSessionHasNoErrors();
     }
 }

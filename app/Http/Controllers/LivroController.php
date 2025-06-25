@@ -3,26 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CadastrarLivroRequest;
-use App\Models\Genero;
 use App\Models\Livro;
-use Illuminate\Support\Facades\Cache;
+use Illuminate\Http\Request;
 
 class LivroController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $generos = Cache::remember('generos', null, function () {
-            return Genero::get();
-        });
-
-        $livros = Cache::remember('livros', null, function () {
-            return Livro::with('generos')->get();
-        });
-
-        return view('pages.livros.index', compact('livros', 'generos'));
+        $livros = Livro::buscar($request->get('busca'))->with('generos')->get();
+        return view('pages.livros.index', compact('livros'));
     }
 
     /**

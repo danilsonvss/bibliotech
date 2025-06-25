@@ -28,9 +28,8 @@ class LivroFactory extends Factory
     public function configure(): static
     {
         return $this->afterCreating(function (Livro $livro) {
-            // Cria de 1 a 3 gêneros e associa ao livro
-            $generos = Genero::factory()->count(rand(1, 3))->create();
-            $livro->generos()->attach($generos->pluck('id'));
+            $generoIds = Genero::inRandomOrder()->limit(rand(1, 3))->pluck('id')->toArray();;
+            $livro->generos()->attach($generoIds);
         });
     }
 }

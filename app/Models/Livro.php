@@ -17,6 +17,16 @@ class Livro extends Model
 
     public function generos()
     {
-        return $this->hasMany(Genero::class);
+        return $this->belongsToMany(Genero::class);
+    }
+
+    public function scopeBuscar($query, $busca)
+    {
+        return $query->where(function ($q) use ($busca) {
+            $q->where('titulo', 'like', '%' . $busca . '%')
+                ->orWhere('autor', 'like', '%' . $busca . '%');
+        })->orWhereHas('generos', function ($q) use ($busca) {
+            $q->where('nome', 'like', '%' . $busca . '%');
+        });
     }
 }

@@ -21,19 +21,19 @@ return new class extends Migration
             $table->unique(['titulo', 'autor', 'numero_registro']);
         });
 
-        Schema::create('livro_has_generos', function (Blueprint $table) {
+        Schema::create('genero_livro', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('livro_id')->constrained('livros')->onDelete('cascade');
             $table->foreignId('genero_id')->constrained('generos')->onDelete('cascade');
+            $table->foreignId('livro_id')->constrained('livros')->onDelete('cascade');
             $table->timestamps();
 
-            $table->unique(['livro_id', 'genero_id']);
+            $table->unique(['genero_id', 'livro_id']);
         });
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('livro_has_generos');
+        Schema::dropIfExists('genero_livro');
         Schema::dropIfExists('livros');
     }
 };

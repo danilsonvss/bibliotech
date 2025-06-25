@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Scopes\EmprestimoAtrasadoScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -33,5 +34,10 @@ class Emprestimo extends Model
     public function usuario()
     {
         return $this->belongsTo(Usuario::class);
+    }
+
+    protected static function booted()
+    {
+        static::addGlobalScope(new EmprestimoAtrasadoScope);
     }
 }
