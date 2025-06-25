@@ -3,8 +3,7 @@
 @section('title', 'Livros')
 
 @section('content')
-@section('page-title', 'Cadastrar um livro')
-
+@section('page-title', 'Livros')
 <nav>
     <ul class="flex flex-row gap-1 list-none text-xs font-bold">
         <li>
@@ -20,9 +19,13 @@
         <li class="text-gray-400">/</li>
 
         <li class="text-gray-400">
-            Cadastrar livro
+            {{ $livro->nome }}
         </li>
     </ul>
+
+    <div class="my-4">
+        <h3 class="font-2xl font-bold">{{ $livro->nome }}</h3>
+    </div>
 </nav>
 
 @endsection

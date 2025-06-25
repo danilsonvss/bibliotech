@@ -31,6 +31,7 @@ class LivroController extends Controller
     public function store(CadastrarLivroRequest $request)
     {
         $livro = Livro::create($request->validated());
+        $livro->generos()->attach($request->validated('generos'));
         return redirect(route('livros.edit', ['livro' => $livro->id]))->with('success', 'Livro cadastrado com sucesso');
     }
 
@@ -39,7 +40,7 @@ class LivroController extends Controller
      */
     public function show(Livro $livro)
     {
-        //
+        return view('pages.livros.show', compact('livro'));
     }
 
     /**
@@ -47,7 +48,7 @@ class LivroController extends Controller
      */
     public function edit(Livro $livro)
     {
-        //
+        return view('pages.livros.edit', compact('livro'));
     }
 
     /**
@@ -55,7 +56,10 @@ class LivroController extends Controller
      */
     public function update(CadastrarLivroRequest $request, Livro $livro)
     {
-        //
+        $livro->fill($request->validated());
+        $livro->generos()->sync($request->validated('generos'));
+        $livro->save();
+        return redirect(route('livros.edit', ['livro' => $livro->id]))->with('success', 'Livro alterado com sucesso');
     }
 
     /**

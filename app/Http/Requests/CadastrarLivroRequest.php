@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class CadastrarLivroRequest extends FormRequest
 {
@@ -22,10 +23,19 @@ class CadastrarLivroRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'titulo' => 'required|min:3|max:255|unique:livros,titulo',
-            'autor' => 'required|min:3|max:255|unique:livros,autor',
-            'numero_registro' => 'required|unique:livros,numero_registro',
-            'generos' => 'required|array:integer|exists:generos,id',
+            'titulo' => [
+                'required',
+                'min:3',
+                'max:255',
+                Rule::unique('livros', 'titulo')->ignore($this->livro),
+            ],
+            'autor' => 'required|min:3|max:255',
+            'numero_registro' => [
+                'required',
+                Rule::unique('livros', 'numero_registro')->ignore($this->livro),
+            ],
+            'generos' => 'required|array',
+            'generos.*' => 'integer|exists:generos,id',
         ];
     }
 }

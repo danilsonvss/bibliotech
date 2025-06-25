@@ -51,13 +51,22 @@ class LivroControllerTest extends TestCase
             'generos' => [1],
         ];
         $response = $this->post('/livros', $data);
-        $response->assertStatus(201);
+        $response->assertRedirect();
         $response->assertSessionHasNoErrors();
+        $response->assertSessionHas('success');
     }
 
     public function test_pagina_de_edicao_de_livros_renderiza(): void
     {
-        $response = $this->get('/livros/edit');
+        $livro = Livro::factory()->create([
+            'titulo' => 'Test 1',
+            'autor' => 'Test',
+            'numero_registro' => '1',
+        ]);
+
+        $response = $this->get(route('livros.edit', [
+            'livro' => $livro->id,
+        ]));
 
         $response->assertSeeText('Alterar livro');
         $response->assertViewIs('pages.livros.edit');
@@ -66,15 +75,25 @@ class LivroControllerTest extends TestCase
 
     public function test_altera_o_titulo_de_um_livro(): void
     {
-        $livro = Livro::factory()->create();
+        $livro = Livro::factory()->create([
+            'titulo' => 'Test 2',
+            'autor' => 'Test',
+            'numero_registro' => '2',
+        ]);
+
+        $livro->generos()->sync([1]);
 
         $data = [
-            'titulo' => 'Ficção Alterado',
+            'titulo' => 'Test',
+            'autor' => 'Test',
+            'numero_registro' => '2',
+            'generos' => [1],
         ];
         $response = $this->put(route('livros.update', [
             'livro' => $livro->id
         ]), $data);
-        $response->assertStatus(200);
+        $response->assertRedirect();
         $response->assertSessionHasNoErrors();
+        $response->assertSessionHas('success');
     }
 }
