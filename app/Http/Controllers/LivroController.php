@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CadastrarLivroRequest;
+use App\Models\Genero;
 use App\Models\Livro;
 use Illuminate\Http\Request;
 
@@ -22,7 +23,8 @@ class LivroController extends Controller
      */
     public function create()
     {
-        return view('pages.livros.create');
+        $generos = Genero::get();
+        return view('pages.livros.create', compact('generos'));
     }
 
     /**

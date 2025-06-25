@@ -24,7 +24,6 @@
 
     <x-form-busca />
 
-    <div class="my-5">
-        {{ $livros }}
-    </div>
+    {{ $livros }}
+
 </x-layout>

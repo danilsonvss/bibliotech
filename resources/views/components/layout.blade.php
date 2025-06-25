@@ -28,6 +28,8 @@
 
             {{ $slot }}
         </x-container>
+
+        <x-alerts.toast />
     </main>
 </body>
 
