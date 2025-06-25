@@ -1,8 +1,8 @@
 <a {{ $attributes }}>
     <x-buttons.accent-button>
         <div class="icon">
-            <x-icons.book-plus />
+            <x-icons.arrow-left />
         </div>
-        <span class="hidden sm:inline-block text-xs">Novo livro</span>
+        <span class="hidden sm:inline-block text-xs">Voltar</span>
     </x-buttons.accent-button>
 </a>

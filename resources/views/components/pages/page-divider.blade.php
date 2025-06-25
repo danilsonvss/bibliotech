@@ -1,1 +1,1 @@
-<hr class="my-2 text-gray-300" />
+<hr class="text-zinc-300" />

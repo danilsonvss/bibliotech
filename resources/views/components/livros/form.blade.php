@@ -1,6 +1,6 @@
 @aware(['generos'])
 
-<form class="flex flex-col w-full sm:w-[400px] gap-3 my-3" action="{{ route('livros.store') }}" method="POST">
+<form class="flex flex-col w-full sm:w-[400px] gap-3 my-3 mx-auto" action="{{ route('livros.store') }}" method="POST">
     @csrf
     <x-inputs.text-input placeholder="Titulo" name="titulo" />
     <x-inputs.text-input placeholder="Autor" name="autor" />
