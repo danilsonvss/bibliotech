@@ -24,6 +24,6 @@
 
     <x-form-busca />
 
-    {{ $livros }}
+    <x-livros.list :livros="$livros" />
 
 </x-layout>
