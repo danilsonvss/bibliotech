@@ -32,7 +32,8 @@ class LivroController extends Controller
     {
         $livro = Livro::create($request->validated());
         $livro->generos()->attach($request->validated('generos'));
-        return redirect(route('livros.edit', ['livro' => $livro->id]))->with('success', 'Livro cadastrado com sucesso');
+        return redirect(route('livros.edit', ['livro' => $livro->id]))
+            ->with('success', 'Livro cadastrado com sucesso');
     }
 
     /**
@@ -59,7 +60,8 @@ class LivroController extends Controller
         $livro->fill($request->validated());
         $livro->generos()->sync($request->validated('generos'));
         $livro->save();
-        return redirect(route('livros.edit', ['livro' => $livro->id]))->with('success', 'Livro alterado com sucesso');
+        return redirect(route('livros.edit', ['livro' => $livro->id]))
+            ->with('success', 'Livro alterado com sucesso');
     }
 
     /**
@@ -67,6 +69,8 @@ class LivroController extends Controller
      */
     public function destroy(Livro $livro)
     {
-        //
+        $livro->delete();
+        return redirect(route('livros.index'))
+            ->with('success', 'Livro excluído com sucesso');
     }
 }
