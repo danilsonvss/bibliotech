@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class CadastrarUsuarioRequest extends FormRequest
 {
@@ -23,8 +24,18 @@ class CadastrarUsuarioRequest extends FormRequest
     {
         return [
             'nome' => 'required|min:3|max:255',
-            'email' => 'required|email|max:255|unique:usuarios,email',
-            'numero_cadastro' => 'required|min:1|max:255',
+            'email' => [
+                'required',
+                'email',
+                'max:255',
+                Rule::unique('usuarios', 'nome')->ignore($this->usuario),
+            ],
+            'numero_cadastro' => [
+                'required',
+                'min:1',
+                'max:255',
+                Rule::unique('usuarios', 'numero_cadastro')->ignore($this->usuario),
+            ],
         ];
     }
 

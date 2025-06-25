@@ -1,4 +1,4 @@
-<x-layout title="Alterar livro" page-title="Alterar livro">
+<x-layout title="Alterar usuario" page-title="Alterar usuario">
     <x-pages.page-actions>
         <x-pages.page-breadcrumbs>
             <x-pages.breadcrumb-item>
@@ -8,7 +8,7 @@
             <x-pages.breadcrumb-divider />
 
             <x-pages.breadcrumb-item>
-                <a href="{{ route('livros.index') }}" class="text-sky-500">Livros</a>
+                <a href="{{ route('usuarios.index') }}" class="text-sky-500">Livros</a>
             </x-pages.breadcrumb-item>
 
             <x-pages.breadcrumb-divider />
@@ -18,8 +18,8 @@
             </x-pages.breadcrumb-item>
         </x-pages.page-breadcrumbs>
 
-        <x-buttons.back-button href="{{ route('livros.index') }}" />
+        <x-buttons.back-button href="{{ route('usuarios.index') }}" />
     </x-pages.page-actions>
 
-    <x-pages.livros.form :generos="$generos" :livro="$livro" />
+    <x-pages.usuarios.form :usuario="$usuario" />
 </x-layout>

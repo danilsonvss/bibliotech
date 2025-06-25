@@ -94,7 +94,7 @@ function removerGeneroDoLivro(generoId) {
     generos = generos.filter((g) => g.id !== generoId);
 }
 
-window.onload = () => {
+document.addEventListener("DOMContentLoaded", () => {
     initGenerosFromDOM();
     const generoSelectElement = document.getElementById("generoSelect");
 
@@ -111,6 +111,29 @@ window.onload = () => {
                 adicionarGeneroAoLivro(generoId, generoNome);
             });
     }
-};
+
+    const buttons = document.querySelectorAll(".excluir-btn");
+
+    buttons.forEach((button) => {
+        button.addEventListener("click", (event) => {
+            event.preventDefault();
+
+            if (
+                !confirm(`Tem certeza que deseja excluir o item?\nEsta ação não pode ser desfeita!`)
+            ) {
+                return;
+            }
+
+            const form = button.closest("form");
+            if (form) {
+                form.submit();
+            } else {
+                console.error(
+                    "Formulário não encontrado para o botão de exclusão."
+                );
+            }
+        });
+    });
+});
 
 window.removerGeneroDoLivro = removerGeneroDoLivro;

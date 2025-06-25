@@ -21,5 +21,5 @@
         <x-buttons.back-button href="{{ route('livros.index') }}" />
     </x-pages.page-actions>
 
-    <x-livros.form :generos="$generos" />
+    <x-pages.livros.form :generos="$generos" />
 </x-layout>

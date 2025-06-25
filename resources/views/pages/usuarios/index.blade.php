@@ -24,7 +24,5 @@
 
     <x-form-busca />
 
-    <div class="my-5">
-        {{ $usuarios }}
-    </div>
+    <x-pages.usuarios.list :usuarios="$usuarios" />
 </x-layout>

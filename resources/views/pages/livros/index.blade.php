@@ -24,6 +24,6 @@
 
     <x-form-busca />
 
-    <x-livros.list :livros="$livros" />
+    <x-pages.livros.list :livros="$livros" />
 
 </x-layout>

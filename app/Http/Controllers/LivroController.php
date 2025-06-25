@@ -6,6 +6,7 @@ use App\Http\Requests\CadastrarLivroRequest;
 use App\Models\Genero;
 use App\Models\Livro;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class LivroController extends Controller
 {
@@ -43,7 +44,7 @@ class LivroController extends Controller
      */
     public function show(Livro $livro)
     {
-        return view('pages.livros.show', compact('livro'));
+        return redirect(route('livros.edit', $livro));
     }
 
     /**
@@ -63,7 +64,6 @@ class LivroController extends Controller
         $livro->fill($request->validated());
         $livro->save();
         $livro->generos()->sync($request->validated('generos'));
-
         return redirect(route('livros.edit', ['livro' => $livro->id]))
             ->with('success', 'Livro alterado com sucesso');
     }
