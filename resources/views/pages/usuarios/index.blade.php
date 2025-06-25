@@ -15,9 +15,9 @@
         <a href="{{ route('usuarios.create') }}">
             <x-buttons.accent-button>
                 <div class="icon">
-                    <x-icons.book-plus />
+                    <x-icons.user-plus />
                 </div>
-                <span class="hidden sm:inline-block text-xs">Novo livro</span>
+                <span class="hidden sm:inline-block text-xs">Novo usuário</span>
             </x-buttons.accent-button>
         </a>
     </x-pages.page-actions>

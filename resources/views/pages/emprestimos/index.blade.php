@@ -15,9 +15,9 @@
         <a href="{{ route('emprestimos.create') }}">
             <x-buttons.accent-button>
                 <div class="icon">
-                    <x-icons.book-plus />
+                    <x-icons.book-up />
                 </div>
-                <span class="hidden sm:inline-block text-xs">Novo livro</span>
+                <span class="hidden sm:inline-block text-xs">Novo empréstimo</span>
             </x-buttons.accent-button>
         </a>
     </x-pages.page-actions>

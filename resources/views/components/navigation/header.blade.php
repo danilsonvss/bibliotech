@@ -12,7 +12,7 @@
                 </x-navigation.nav-item>
 
                 <x-navigation.nav-item href="{{ route('emprestimos.index') }}">
-                    <x-icons.book-up />
+                    <x-icons.book-ups />
                     <span class="hidden sm:inline-block">Empréstimos</span>
                 </x-navigation.nav-item>
 
