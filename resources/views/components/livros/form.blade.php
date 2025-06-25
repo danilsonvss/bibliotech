@@ -16,10 +16,10 @@
                     <option value="{{ $g->id }}">{{ $g->nome }}</option>
                 @endforeach
             </select>
-            <x-buttons.accent-button type="button">
+            <x-buttons.ghost-button type="button">
                 <x-icons.plus />
-                <span class="hidden sm:block">Adicionar</span>
-            </x-buttons.accent-button>
+                <span class="hidden sm:block text-xs">Adicionar</span>
+            </x-buttons.ghost-button>
         </x-inputs.input>
     @else
         <div class="flex flex-col items-center justify-center p-3 bg-yellow-200 text-yellow-800 rounded">
@@ -28,7 +28,7 @@
     @endisset
 
     <div class="flex flex-col sm:flex-row justify-end">
-        <x-buttons.accent-button type="submit" class="py-2 px-5">
+        <x-buttons.accent-button type="submit" class="py-2 px-5 text-sm">
             Cadastrar
         </x-buttons.accent-button>
     </div>

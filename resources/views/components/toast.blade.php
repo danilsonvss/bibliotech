@@ -21,7 +21,7 @@
 
 @isset($type)
     <div x-init="startTimer()" x-show="show" x-transition @mouseenter="pause" @mouseleave="resume"
-        class="fixed top-5 sm:right-5 z-50 w-full max-w-sm bg-{{ $types[$type]['color'] }}-100 text-{{ $types[$type]['color'] }}-800 rounded-lg shadow-lg overflow-hidden"
+        class="fixed left-2 right-2 top-[60px] sm:left-auto z-50 sm:max-w-sm bg-{{ $types[$type]['color'] }}-100 text-{{ $types[$type]['color'] }}-800 rounded-lg shadow-lg overflow-hidden"
         role="alert" x-data="{
             show: true,
             progress: 100,
