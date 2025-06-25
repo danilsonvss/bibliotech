@@ -8,6 +8,6 @@
     </x-toast>
 @endif
 
-@if (session()->get('success'))
-    <x-toast type="success" message="{{ session()->get('success') }}" />
+@if(session('success'))
+    <x-toast type="success" :message="session('success')" />
 @endif

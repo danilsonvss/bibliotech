@@ -54,7 +54,7 @@
 
             {{-- Mensagem --}}
             <div class="flex-1 text-sm">
-                {{ $slot }}
+                {{  $message ?? $slot }}
             </div>
 
             {{-- Fechar --}}

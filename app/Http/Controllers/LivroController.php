@@ -51,7 +51,8 @@ class LivroController extends Controller
      */
     public function edit(Livro $livro)
     {
-        return view('pages.livros.edit', compact('livro'));
+        $generos = Genero::get();
+        return view('pages.livros.edit', compact('livro', 'generos'));
     }
 
     /**
@@ -60,11 +61,13 @@ class LivroController extends Controller
     public function update(CadastrarLivroRequest $request, Livro $livro)
     {
         $livro->fill($request->validated());
-        $livro->generos()->sync($request->validated('generos'));
         $livro->save();
+        $livro->generos()->sync($request->validated('generos'));
+
         return redirect(route('livros.edit', ['livro' => $livro->id]))
             ->with('success', 'Livro alterado com sucesso');
     }
+
 
     /**
      * Remove the specified resource from storage.

@@ -1,22 +1,35 @@
-@aware(['generos'])
+@aware(['generos', 'livro' => null]) {{-- livro pode ser null em create --}}
 
-<form class="flex flex-col w-full sm:w-[400px] gap-3 my-3 mx-auto" action="{{ route('livros.store') }}" method="POST">
+<form class="flex flex-col w-full sm:w-[400px] gap-3 my-3 mx-auto"
+    action="{{ isset($livro) ? route('livros.update', $livro) : route('livros.store') }}" method="POST">
+
     @csrf
-    <x-inputs.text-input placeholder="Titulo" name="titulo" />
-    <x-inputs.text-input placeholder="Autor" name="autor" />
+    @if (isset($livro))
+        @method('PUT')
+    @endif
+
+    <x-inputs.text-input placeholder="Titulo" name="titulo" :value="old('titulo', $livro->titulo ?? '')" />
+
+    <x-inputs.text-input placeholder="Autor" name="autor" :value="old('autor', $livro->autor ?? '')" />
 
     <div class="flex flex-row items-center flex-1 h-full border border-gray-400 rounded py-1 px-1">
-        <input type="text" class="w-full py-2 px-1 h-full" placeholder="Número de registro" name="numero_registro" />
+        <input type="text" class="w-full py-2 px-1 h-full" placeholder="Número de registro" name="numero_registro"
+            value="{{ old('numero_registro', $livro->numero_registro ?? '') }}" />
     </div>
 
     @isset($generos)
         <x-inputs.input>
-            <select type="text" class="w-full py-2 px-1 h-full">
+            <select type="text" id="generoSelect" class="w-full py-2 px-1 h-full">
                 @foreach ($generos as $g)
-                    <option value="{{ $g->id }}">{{ $g->nome }}</option>
+                    <option value="{{ $g->id }}"
+                        {{ collect(old('generos', isset($livro) ? $livro->generos->pluck('id')->toArray() : []))->contains($g->id)
+                            ? 'selected'
+                            : '' }}>
+                        {{ $g->nome }}
+                    </option>
                 @endforeach
             </select>
-            <x-buttons.ghost-button type="button">
+            <x-buttons.ghost-button type="button" id="btnAdicionar">
                 <x-icons.plus />
                 <span class="hidden sm:block text-xs">Adicionar</span>
             </x-buttons.ghost-button>
@@ -27,9 +40,33 @@
         </div>
     @endisset
 
+    <ul id="generosList" class="space-y-1">
+        @php
+            $generosSelecionados = old('generos', isset($livro) ? $livro->generos->pluck('id')->toArray() : []);
+        @endphp
+
+        @foreach ($generosSelecionados as $generoId)
+            @php
+                $genero = $generos->firstWhere('id', $generoId);
+                if (!$genero) {
+                    continue;
+                }
+            @endphp
+            <input type="hidden" name="generos[]" value="{{ $genero->id }}" id="input_genero_{{ $genero->id }}" />
+            <li id="li_genero_{{ $genero->id }}"
+                class="flex flex-row justify-between items-center text-sm rounded font-bold cursor-pointer p-1">
+                <span>{{ $genero->nome }}</span>
+                <button type="button" class="text-xs text-red-500 hover:bg-red-200 rounded font-bold p-2"
+                    onclick="removerGeneroDoLivro({{ $genero->id }})">
+                    Remover
+                </button>
+            </li>
+        @endforeach
+    </ul>
+
     <div class="flex flex-col sm:flex-row justify-end">
         <x-buttons.accent-button type="submit" class="py-2 px-5 text-sm">
-            Cadastrar
+            {{ isset($livro) ? 'Atualizar' : 'Cadastrar' }}
         </x-buttons.accent-button>
     </div>
 </form>

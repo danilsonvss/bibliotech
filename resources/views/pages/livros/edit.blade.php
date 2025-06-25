@@ -18,6 +18,8 @@
             </x-pages.breadcrumb-item>
         </x-pages.page-breadcrumbs>
 
-        </x-pagesback href="{{ route('livros.index') }}" />
+        <x-buttons.back-button href="{{ route('livros.index') }}" />
     </x-pages.page-actions>
+
+    <x-livros.form :generos="$generos" :livro="$livro" />
 </x-layout>
