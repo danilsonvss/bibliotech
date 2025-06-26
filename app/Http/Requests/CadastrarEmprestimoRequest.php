@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\LivroDisponivel;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CadastrarEmprestimoRequest extends FormRequest
@@ -15,7 +16,11 @@ class CadastrarEmprestimoRequest extends FormRequest
     {
         return [
             'usuario_id' => 'required|exists:usuarios,id',
-            'livro_id' => 'required|exists:livros,id',
+            'livro_id' => [
+                'required',
+                'exists:livros,id',
+                new LivroDisponivel(),
+            ],
             'devolvido' => 'nullable|in:0,1',
             'data_limite_devolucao' => 'required|date|after_or_equal:data_emprestimo',
             'data_emprestimo' => 'required|date',
