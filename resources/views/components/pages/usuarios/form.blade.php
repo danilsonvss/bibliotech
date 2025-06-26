@@ -10,7 +10,7 @@
 
     <x-inputs.text-input name="nome" placeholder="Nome" :value="old('nome', $usuario->nome ?? '')" />
     <x-inputs.text-input type="email" placeholder="E-mail" name="email" :value="old('email', $usuario->email ?? '')" />
-    <x-inputs.text-input placeholder="E-mail" name="numero_cadastro" :value="old('numero_cadastro', $usuario->numero_cadastro ?? '')" />
+    <x-inputs.text-input placeholder="Número de cadastro" name="numero_cadastro" :value="old('numero_cadastro', $usuario->numero_cadastro ?? '')" />
 
     <div class="flex flex-col sm:flex-row justify-end">
         <x-buttons.accent-button type="submit" class="py-2 px-5 text-sm">
