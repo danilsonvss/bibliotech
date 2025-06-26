@@ -9,8 +9,12 @@
         @method('PUT')
     @endif
 
-    @if ($usuarios && !isset($emprestimo))
-        <label for="usuario_id" class="text-sm">Usuário</label>
+    <label for="usuario_id" class="text-sm">Usuário</label>
+    @isset($emprestimo)
+        <div>
+            {{ $emprestimo->usuario->numero_cadastro }} - {{ $emprestimo->usuario->nome }}
+        </div>
+    @else
         <x-inputs.input>
             <select type="text" name="usuario_id" class="w-full py-2 px-1 h-full">
                 <option value=""></option>
@@ -26,10 +30,19 @@
                 @endforeach
             </select>
         </x-inputs.input>
-    @endif
+        <x-pages.empty :items="$usuarios" name="usuarios" />
+    @endisset
 
-    @if ($livros && !isset($emprestimo))
-        <label for="livro_id" class="text-sm">Livro</label>
+    <label for="livro_id" class="text-sm">Livro</label>
+    @isset($emprestimo)
+        <div>
+            {{ $emprestimo->livro->numero_registro }} - {{ $emprestimo->livro->titulo }}
+        </div>
+        <label for="livro_id" class="text-sm">Usuário</label>
+        <div>
+            {{ $emprestimo->usuario->numero_cadastro }} - {{ $emprestimo->usuario->nome }}
+        </div>
+    @else
         <x-inputs.input>
             <select type="text" name="livro_id" class="w-full py-2 px-1 h-full">
                 <option value=""></option>
@@ -43,16 +56,8 @@
                 @endforeach
             </select>
         </x-inputs.input>
-    @else
-        <label for="livro_id" class="text-sm">Livro</label>
-        <div>
-            {{ $emprestimo->livro->numero_registro }} - {{ $emprestimo->livro->titulo }}
-        </div>
-        <label for="livro_id" class="text-sm">Usuário</label>
-        <div>
-            {{ $emprestimo->usuario->numero_cadastro }} - {{ $emprestimo->usuario->nome }}
-        </div>
-    @endif
+        <x-pages.empty :items="$livros" name="livro disponível" />
+    @endisset
 
     @if (!isset($emprestimo))
         <label for="data_emprestimo" class="flex flex-col gap-2 text-sm">

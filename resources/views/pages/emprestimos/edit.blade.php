@@ -21,5 +21,5 @@
         <x-buttons.back-button href="{{ route('emprestimos.index') }}" />
     </x-pages.page-actions>
 
-    <x-pages.emprestimos.form :usuarios="$usuarios" :livros="$livros" :emprestimo="$emprestimo" />
+    <x-pages.emprestimos.form :emprestimo="$emprestimo" />
 </x-layout>

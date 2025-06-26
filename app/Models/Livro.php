@@ -18,6 +18,11 @@ class Livro extends Model
         'numero_registro',
     ];
 
+    public function emprestimos()
+    {
+        return $this->hasMany(Emprestimo::class);
+    }
+
     public function generos()
     {
         return $this->belongsToMany(Genero::class);
@@ -31,6 +36,13 @@ class Livro extends Model
                 ->orWhere('numero_registro', '=', $busca);
         })->orWhereHas('generos', function ($q) use ($busca) {
             $q->where('nome', 'like', '%' . $busca . '%');
+        });
+    }
+
+    public function scopeDisponivel($query)
+    {
+        return $query->whereDoesntHave('emprestimos', function ($q) {
+            $q->where('devolvido', false);
         });
     }
 }

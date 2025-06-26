@@ -27,7 +27,7 @@ class EmprestimoController extends Controller
     public function create()
     {
         $usuarios = Usuario::all();
-        $livros = Livro::all();
+        $livros = Livro::disponivel()->get();
         return view('pages.emprestimos.create', compact('usuarios', 'livros'));
     }
 
@@ -47,15 +47,13 @@ class EmprestimoController extends Controller
     public function show(Emprestimo $emprestimo)
     {
         $usuarios = Usuario::all();
-        $livros = Livro::all();
+        $livros = Livro::disponivel()->get();
         return view('pages.emprestimos.edit', compact('usuarios', 'livros', 'emprestimo'));
     }
 
     public function edit(Emprestimo $emprestimo)
     {
-        $usuarios = Usuario::all();
-        $livros = Livro::all();
-        return view('pages.emprestimos.edit', compact('usuarios', 'livros', 'emprestimo'));
+        return view('pages.emprestimos.edit', compact('emprestimo'));
     }
 
     public function update(AtualizarEmprestimoRequest $request, Emprestimo $emprestimo)
