@@ -22,4 +22,11 @@ class Usuario extends Model
     {
         return $this->hasMany(Emprestimo::class);
     }
+
+    public function scopeBuscar($query, $busca)
+    {
+        return $query->where('nome', 'like', '%' . $busca . '%')
+            ->orWhere('email', '=', $busca)
+            ->orWhere('numero_cadastro', '=', $busca);
+    }
 }

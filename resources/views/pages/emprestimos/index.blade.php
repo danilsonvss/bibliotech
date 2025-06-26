@@ -24,7 +24,7 @@
 
     <x-form-busca />
 
-    <div class="my-5">
-        {{ $emprestimos }}
-    </div>
+    {{ $emprestimos }}
+
+    <x-pages.emprestimos.list :emprestimos="$emprestimos" />
 </x-layout>

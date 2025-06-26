@@ -6,11 +6,6 @@
             </h1>
 
             <x-navigation.navbar>
-                <x-navigation.nav-item href="{{ route('home') }}">
-                    <x-icons.home />
-                    <span class="hidden sm:inline-block">Início</span>
-                </x-navigation.nav-item>
-
                 <x-navigation.nav-item href="{{ route('emprestimos.index') }}">
                     <x-icons.book-ups />
                     <span class="hidden sm:inline-block">Empréstimos</span>

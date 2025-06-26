@@ -14,7 +14,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class="font-normal">
+<body class="font-normal bg-zinc-800 text-white">
     <x-navigation.header />
 
     <main>

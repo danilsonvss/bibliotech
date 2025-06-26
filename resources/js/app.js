@@ -119,7 +119,9 @@ document.addEventListener("DOMContentLoaded", () => {
             event.preventDefault();
 
             if (
-                !confirm(`Tem certeza que deseja excluir o item?\nEsta ação não pode ser desfeita!`)
+                !confirm(
+                    `Tem certeza que deseja excluir o item?\nEsta ação não pode ser desfeita!`
+                )
             ) {
                 return;
             }
@@ -134,6 +136,15 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     });
+
+    if (document.querySelector(".clear-busca-btn") !== null) {
+        document
+            .querySelector(".clear-busca-btn")
+            .addEventListener("click", function () {
+                document.querySelector('[name="busca"]').value = "";
+                document.querySelector("#formBusca").submit();
+            });
+    }
 });
 
 window.removerGeneroDoLivro = removerGeneroDoLivro;

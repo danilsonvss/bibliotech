@@ -1,6 +1,6 @@
 <ul class="list-none gap-3">
     @foreach ($usuarios as $usuario)
-        <li class="flex flex-row items-center justify-between px-2 py-2 hover:bg-zinc-300 rounded">
+        <li class="flex flex-row items-center justify-between px-2 py-2 hover:bg-zinc-700 rounded">
             <div class="flex flex-col">
                 {{ $usuario->nome }}
                 <span class="text-xs text-sky-500 font-bold">{{ $usuario->email }}</span>

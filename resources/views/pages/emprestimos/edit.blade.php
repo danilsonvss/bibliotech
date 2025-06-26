@@ -1,4 +1,4 @@
-<x-layout title="Cadastrar emprestimo" page-title="Cadastrar emprestimo">
+<x-layout title="Alterar empréstimo" page-title="Alterar empréstimo">
     <x-pages.page-actions>
         <x-pages.page-breadcrumbs>
             <x-pages.breadcrumb-item>

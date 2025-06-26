@@ -14,7 +14,7 @@
             <x-pages.breadcrumb-divider />
 
             <x-pages.breadcrumb-item>
-                Cadastrar emprestimo
+                Cadastrar empréstimo
             </x-pages.breadcrumb-item>
         </x-pages.page-breadcrumbs>
 

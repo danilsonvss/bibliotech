@@ -1,6 +1,6 @@
 @aware(['generos', 'livro' => null]) {{-- livro pode ser null em create --}}
 
-<form class="flex flex-col w-full sm:w-[400px] gap-3 my-3 mx-auto"
+<form class="flex flex-col w-full sm:w-[400px] gap-3 my-3"
     action="{{ isset($livro) ? route('livros.update', $livro) : route('livros.store') }}" method="POST">
 
     @csrf
@@ -9,13 +9,8 @@
     @endif
 
     <x-inputs.text-input placeholder="Titulo" name="titulo" :value="old('titulo', $livro->titulo ?? '')" />
-
     <x-inputs.text-input placeholder="Autor" name="autor" :value="old('autor', $livro->autor ?? '')" />
-
-    <div class="flex flex-row items-center flex-1 h-full border border-gray-400 rounded py-1 px-1">
-        <input type="text" class="w-full py-2 px-1 h-full" placeholder="Número de registro" name="numero_registro"
-            value="{{ old('numero_registro', $livro->numero_registro ?? '') }}" />
-    </div>
+    <x-inputs.text-input placeholder="Número de registro" name="numero_registro" :value="old('numero_registro', $livro->numero_registro ?? '')" />
 
     @isset($generos)
         <x-inputs.input>

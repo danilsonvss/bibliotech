@@ -20,7 +20,7 @@ class CadastrarUsuarioRequest extends FormRequest
                 'required',
                 'email',
                 'max:255',
-                Rule::unique('usuarios', 'nome')->ignore($this->usuario),
+                Rule::unique('usuarios', 'email')->ignore($this->usuario),
             ],
             'numero_cadastro' => [
                 'required',

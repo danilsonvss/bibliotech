@@ -4,12 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CadastrarUsuarioRequest;
 use App\Models\Usuario;
+use Illuminate\Http\Request;
 
 class UsuarioController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $usuarios = Usuario::paginate(20)->withQueryString();
+        $usuarios = Usuario::buscar($request->get('busca'))
+            ->paginate(20)->withQueryString();
         return view('pages.usuarios.index', compact('usuarios'));
     }
 

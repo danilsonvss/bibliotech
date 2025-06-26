@@ -36,8 +36,34 @@ class Emprestimo extends Model
         return $this->belongsTo(Usuario::class);
     }
 
-    protected static function booted()
+    public function atrasado()
     {
-        static::addGlobalScope(new EmprestimoAtrasadoScope);
+        if ($this->data_devolucao > $this->data_limite_devolucao && $this->devolvido) {
+            return true;
+        }
+
+        return  ($this->data_limite_devolucao < now() && !$this->devolvido);
+    }
+
+    public function scopeBuscar($query, $busca)
+    {
+        return $query->where(function ($q) use ($busca) {
+            $q->where('data_emprestimo', 'like', '%' . $busca . '%')
+                ->orWhere('data_devolucao', 'like', '%' . $busca . '%')
+                ->orWhere('data_limite_devolucao', 'like', '%' . $busca . '%');
+        })
+            ->orWhereHas('usuario', function ($q) use ($busca) {
+                $q->where('nome', 'like', '%' . $busca . '%')
+                    ->orWhere('email', 'like', '%' . $busca . '%')
+                    ->orWhere('numero_cadastro', 'like', '%' . $busca . '%');
+            })
+            ->orWhereHas('livro', function ($q) use ($busca) {
+                $q->where('titulo', 'like', '%' . $busca . '%')
+                    ->orWhere('autor', 'like', '%' . $busca . '%')
+                    ->orWhere('numero_registro', 'like', '%' . $busca . '%')
+                    ->orWhereHas('generos', function ($q) use ($busca) {
+                        $q->where('nome', 'like', '%' . $busca . '%');
+                    });
+            });
     }
 }

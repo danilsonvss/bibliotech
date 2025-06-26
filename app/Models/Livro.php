@@ -27,7 +27,8 @@ class Livro extends Model
     {
         return $query->where(function ($q) use ($busca) {
             $q->where('titulo', 'like', '%' . $busca . '%')
-                ->orWhere('autor', 'like', '%' . $busca . '%');
+                ->orWhere('autor', 'like', '%' . $busca . '%')
+                ->orWhere('numero_registro', '=', $busca);
         })->orWhereHas('generos', function ($q) use ($busca) {
             $q->where('nome', 'like', '%' . $busca . '%');
         });

@@ -1,1 +1,1 @@
-<hr class="text-zinc-300" />
+<hr class="text-zinc-700" />

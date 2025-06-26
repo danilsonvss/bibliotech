@@ -7,13 +7,9 @@ use Tests\TestCase;
 
 class LivroControllerTest extends TestCase
 {
-    /**
-     * A basic feature test example.
-     */
     public function test_pagina_inicial_de_livros_renderiza(): void
     {
-        $response = $this->get('/livros');
-
+        $response = $this->get(route('livros.index'));
         $response->assertViewHas('livros');
         $response->assertViewIs('pages.livros.index');
         $response->assertStatus(200);
@@ -21,8 +17,7 @@ class LivroControllerTest extends TestCase
 
     public function test_pagina_de_cadastro_de_livros_renderiza(): void
     {
-        $response = $this->get('/livros/create');
-
+        $response = $this->get(route('livros.create'));
         $response->assertSeeText('Cadastrar livro');
         $response->assertViewIs('pages.livros.create');
         $response->assertStatus(200);
@@ -31,7 +26,7 @@ class LivroControllerTest extends TestCase
     public function test_valida_campos_obrigatorios_de_um_livro(): void
     {
         $data = [];
-        $response = $this->post('/livros', $data);
+        $response = $this->post(route('livros.store'), $data);
         $response->assertRedirect();
         $response->assertSessionHasErrors([
             'titulo',
@@ -49,7 +44,7 @@ class LivroControllerTest extends TestCase
             'numero_registro' => '1',
             'generos' => [1],
         ];
-        $response = $this->post('/livros', $data);
+        $response = $this->post(route('livros.store'), $data);
         $response->assertRedirect();
         $response->assertSessionHasNoErrors();
         $response->assertSessionHas('success');

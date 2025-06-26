@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CadastrarEmprestimoRequest extends FormRequest
+class AtualizarEmprestimoRequest extends FormRequest
 {
     public function authorize(): bool
     {
@@ -14,11 +14,7 @@ class CadastrarEmprestimoRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'usuario_id' => 'required|exists:usuarios,id',
-            'livro_id' => 'required|exists:livros,id',
             'devolvido' => 'nullable|in:0,1',
-            'data_limite_devolucao' => 'required|date|after_or_equal:data_emprestimo',
-            'data_emprestimo' => 'required|date',
             'data_devolucao' => 'nullable|required_if:devolvido,1|date|after_or_equal:data_emprestimo',
         ];
     }
@@ -26,11 +22,7 @@ class CadastrarEmprestimoRequest extends FormRequest
     public function attributes(): array
     {
         return [
-            'usuario_id' => 'Usuário',
-            'livro_id' => 'Livro',
             'devolvido' => 'Devolvido',
-            'data_limite_devolucao' => 'Data para devolução',
-            'data_emprestimo' => 'Data do empréstimo',
             'data_devolucao' => 'Data da devolução',
         ];
     }

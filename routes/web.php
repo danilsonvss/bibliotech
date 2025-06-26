@@ -7,8 +7,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::fallback(fn() => redirect(route('home')));
 
-Route::get('/', fn() => view('pages.home'))->name('home');
-
+Route::get('/', [EmprestimoController::class, 'index'])->name('home');
 Route::resources([
     'livros' => LivroController::class,
     'usuarios' => UsuarioController::class,
