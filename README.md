@@ -76,3 +76,11 @@ docker-compose exec app php artisan migrate --seed
 ### 3.2 Acessando a aplicação
 
 Para acessa a aplicação abra o endereço http://localhost:80
+
+### 3.3 Testes
+
+Rode os testes através do comando abaixo
+
+```sh
+docker-compose exec app php artisan test
+```
